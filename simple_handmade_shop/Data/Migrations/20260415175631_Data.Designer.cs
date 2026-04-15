@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using simple_handmade_shop.Data;
 
@@ -11,9 +12,11 @@ using simple_handmade_shop.Data;
 namespace simple_handmade_shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260415175631_Data")]
+    partial class Data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,53 +256,6 @@ namespace simple_handmade_shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "A beautifully crafted wooden chair made from high-quality materials.",
-                            ImageUrl = "https://example.com/images/wooden-chair.jpg",
-                            Name = "Handmade Wooden Chair",
-                            Price = 149.99m,
-                            Quantity = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "An elegant ceramic vase with intricate designs, perfect for home decor.",
-                            ImageUrl = "https://example.com/images/ceramic-vase.jpg",
-                            Name = "Handmade Ceramic Vase",
-                            Price = 79.99m,
-                            Quantity = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "A stylish and durable leather wallet that combines functionality with craftsmanship.",
-                            ImageUrl = "https://example.com/images/leather-wallet.jpg",
-                            Name = "Handmade Leather Wallet",
-                            Price = 59.99m,
-                            Quantity = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "A cozy and fashionable knitted scarf made from soft yarn, ideal for chilly days.",
-                            ImageUrl = "https://example.com/images/knitted-scarf.jpg",
-                            Name = "Handmade Knitted Scarf",
-                            Price = 39.99m,
-                            Quantity = 0
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "A sturdy and attractive wooden cutting board that adds a rustic touch to your kitchen.",
-                            ImageUrl = "https://example.com/images/cutting-board.jpg",
-                            Name = "Handmade Wooden Cutting Board",
-                            Price = 29.99m,
-                            Quantity = 0
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

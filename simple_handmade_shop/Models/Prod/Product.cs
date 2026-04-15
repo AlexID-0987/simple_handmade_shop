@@ -1,4 +1,4 @@
-﻿namespace simple_handmade_shop.Models.Product
+﻿namespace simple_handmade_shop.Models
 {
     public class Product
     {
