@@ -15,4 +15,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\photo\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\photo\Без названия.jpg" />
+  </ItemGroup>
+
 </Project>

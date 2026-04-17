@@ -12,18 +12,18 @@ namespace simple_handmade_shop.Data
                 new Product
                 {
                     Id = 1,
-                    Name = "Handmade Wooden Chair",
+                    Name = "Lavander Sache",
                     Description = "A beautifully crafted wooden chair made from high-quality materials.",
                     Price = 149.99m,
-                    ImageUrl = "https://example.com/images/wooden-chair.jpg"
+                    ImageUrl = "/photo/Без названия.jpg"
                 },
                 new Product
                 {
                     Id = 2,
-                    Name = "Handmade Ceramic Vase",
+                    Name = "Handmade",
                     Description = "An elegant ceramic vase with intricate designs, perfect for home decor.",
                     Price = 79.99m,
-                    ImageUrl = "https://example.com/images/ceramic-vase.jpg"
+                    ImageUrl = "/photo/lav.jpg"
                 },
                 new Product
                 {
@@ -31,23 +31,23 @@ namespace simple_handmade_shop.Data
                     Name = "Handmade Leather Wallet",
                     Description = "A stylish and durable leather wallet that combines functionality with craftsmanship.",
                     Price = 59.99m,
-                    ImageUrl = "https://example.com/images/leather-wallet.jpg"
+                    ImageUrl = "/photo/lavanda.jpg"
                 },
                 new Product
                 {
                     Id = 4,
-                    Name = "Handmade Knitted Scarf",
+                    Name = "Handmade soap",
                     Description = "A cozy and fashionable knitted scarf made from soft yarn, ideal for chilly days.",
                     Price = 39.99m,
-                    ImageUrl = "https://example.com/images/knitted-scarf.jpg"
+                    ImageUrl = "/photo/lavandawood.jpg"
                 },
                 new Product
                 {
                     Id = 5,
-                    Name = "Handmade Wooden Cutting Board",
+                    Name = "Lavanda",
                     Description = "A sturdy and attractive wooden cutting board that adds a rustic touch to your kitchen.",
                     Price = 29.99m,
-                    ImageUrl = "https://example.com/images/cutting-board.jpg"
+                    ImageUrl = "/photo/Без названия.jpg"
                 }
             );
         }

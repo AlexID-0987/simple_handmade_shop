@@ -15,6 +15,7 @@ namespace simple_handmade_shop.Models.Services
         }
         public IEnumerable<Product> GetAllProducts()
         {
+           
             var products = _applicationDbContext.Products.ToList();
             return products;
         }

@@ -24,7 +24,10 @@ namespace simple_handmade_shop.Controllers
 
         public IActionResult Index()
         {
-            
+            if(!_getProducts.GetAllProducts().Any())
+            {
+                return NotFound("No products found");
+            }
             return View(_getProducts.GetAllProducts());
         }
 

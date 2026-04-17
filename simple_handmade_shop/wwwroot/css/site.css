@@ -29,3 +29,17 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+.card img {
+    height: 200px;
+    object-fit: cover;
+    
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.card-body .container {
+    margin-top: auto; /* тисне кнопку вниз */
+    margin-bottom: 10px; /* однаковий відступ знизу */
+}
