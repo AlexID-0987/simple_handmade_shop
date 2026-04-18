@@ -11,6 +11,6 @@
     <h1>@Model.Price</h1>
     <div class="action">
         <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Back to Products</a>
-        <a asp-action="Buy" asp-controller="Buy" asp-route-id="@Model.Id" class="btn btn-primary">Buy</a>
+        <a asp-action="Add" asp-controller="Bag" asp-route-id="@Model.Id" asp-route-name="@Model.Name" asp-route-price="@Model.Price" class="btn btn-primary">Buy</a>
     </div>
 </div>
