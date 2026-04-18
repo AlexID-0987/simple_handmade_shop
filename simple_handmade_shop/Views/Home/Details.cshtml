@@ -1,0 +1,16 @@
+﻿@model Product
+@section Styles {
+    <link rel="stylesheet" href="~/css/details.css" />
+}
+<div class="container">
+    <h1>@Model.Name</h1>
+    <div class="image">
+        <img src="@Model.ImageUrl" alt="@Model.Name" style="max-width: 100%; height: auto;">
+    </div>
+    <p>@Model.FullDescription</p>
+    <h1>@Model.Price</h1>
+    <div class="action">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Back to Products</a>
+        <a asp-action="Buy" asp-controller="Buy" asp-route-id="@Model.Id" class="btn btn-primary">Buy</a>
+    </div>
+</div>

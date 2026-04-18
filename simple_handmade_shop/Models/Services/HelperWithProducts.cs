@@ -19,6 +19,15 @@ namespace simple_handmade_shop.Models.Services
             var products = _applicationDbContext.Products.ToList();
             return products;
         }
+        public Product Details(int id)
+        {
+            var product = _applicationDbContext.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+            {
+                throw new Exception("Product not found");
+            }
+            return product;
+        }
     }
 }
  

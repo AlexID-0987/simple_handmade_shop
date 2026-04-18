@@ -1,4 +1,4 @@
-﻿@using simple_handmade_shop.Models
+﻿
 @model IEnumerable<Product>
 
 <div class="text-center">
@@ -13,7 +13,7 @@
                 <h5 class="card-title">@product.Name</h5>
                 <p class="card-text">@product.Description</p>
                 <div class="container text-center">
-                    <a href="@Url.Action("Details", "Products", new { id = product.Id })" class="btn btn-primary">View Details</a>
+                    <a asp-action="Details" asp-controller="Home" asp-route-id="@product.Id" class="btn btn-primary">View Details</a>
                 </div>
             </div>
         </div>

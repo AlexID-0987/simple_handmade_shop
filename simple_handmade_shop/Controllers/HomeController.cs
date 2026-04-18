@@ -30,6 +30,19 @@ namespace simple_handmade_shop.Controllers
             }
             return View(_getProducts.GetAllProducts());
         }
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                var product = _getProducts.Details(id);
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting product details for id {Id}", id);
+                return NotFound("Product not found");
+            }
+        }
 
         public IActionResult Privacy()
         {
