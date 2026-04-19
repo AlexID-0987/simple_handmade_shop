@@ -1,6 +1,8 @@
-﻿
-@model IEnumerable<Product>
-
+﻿@model IEnumerable<Product>
+@if (!Model.Any())
+{
+    <p>No products available</p>
+}
 <div class="text-center">
     <h1 class="display-4">Products</h1>
 </div>

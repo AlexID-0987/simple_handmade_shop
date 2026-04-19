@@ -39,28 +39,38 @@ namespace simple_handmade_shop.Models.Services
         {
             var bags = GetBagsFromSession().ToList();
             Bag? existingBag = bags.FirstOrDefault(b => b.Id == id);
-            
+
             if (existingBag != null)
             {
-                existingBag.Quantity ++;
+                existingBag.Quantity++;
             }
             else
             {
-                
+
                 bags.Add(new Bag { Id = id, Name = name, Price = price, Quantity = 1 });
-                
+
             }
             SaveBagsToSession(bags);
         }
         public void RemoveBag(int id)
         {
-                var bags = GetBagsFromSession().ToList();
-                Bag? bagToRemove = bags.FirstOrDefault(b => b.Id == id);
-                if (bagToRemove != null)
-                {
-                    bags.Remove(bagToRemove);
-                    SaveBagsToSession(bags);
-                }
+            var bags = GetBagsFromSession().ToList();
+            Bag? bagToRemove = bags.FirstOrDefault(b => b.Id == id);
+            if (bagToRemove != null)
+            {
+                bags.Remove(bagToRemove);
+                SaveBagsToSession(bags);
+            }
+        }
+        public void UpdateBag(int id, int quantity)
+        {
+            var bags = GetBagsFromSession().ToList();
+            Bag? bagToUpdate = bags.FirstOrDefault(b => b.Id == id);
+            if (bagToUpdate != null)
+            {
+                bagToUpdate.Quantity = quantity;
+                SaveBagsToSession(bags);
+            }
         }
     }
 }

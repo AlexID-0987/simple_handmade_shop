@@ -20,10 +20,20 @@ namespace simple_handmade_shop.Controllers
             _getBag.AddBag(id, name, price);
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Remove(int id)
         {
             _getBag.RemoveBag(id);
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateQuantity(int id, int quantity)
+        {
+            _getBag.UpdateBag(id, quantity);
+            return RedirectToAction("Index");
+        }
+
     }
 }

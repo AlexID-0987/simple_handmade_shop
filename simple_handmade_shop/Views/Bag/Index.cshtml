@@ -8,6 +8,7 @@
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th>Update Quantity</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -16,10 +17,35 @@
             {
                 <tr>
                     <td>@item.Name</td>
-                    <td>@item.Quantity</td>
+                    <td>
+                        <form asp-action="UpdateQuantity" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" name="quantity" class="btn btn-outline-primary" value="@(item.Quantity + 1)">+</button>
+                            <button type="submit" name="quantity" class="btn btn-outline-primary" value="@(item.Quantity - 1)">-</button>
+                        </form>
+                    </td>
                     <td>@item.Price</td>
                     <td>
+                        <form asp-action="UpdateQuantity" method="post" style="display:flex; gap:5px;">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@item.Id" />
+
+                            <input type="number"
+                                   name="quantity"
+                                   value="@item.Quantity"
+                                   min="1"
+                                   class="form-control"
+                                   style="width:70px;" />
+
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                Update
+                            </button>
+                        </form>
+                    </td>
+                    <td>
                         <form asp-action="Remove" asp-route-id="@item.Id" method="post">
+                            @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-danger">Remove</button>
                         </form>
                     </td>

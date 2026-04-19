@@ -24,24 +24,26 @@ namespace simple_handmade_shop.Controllers
 
         public IActionResult Index()
         {
-            if(!_getProducts.GetAllProducts().Any())
+            var products = _getProducts.GetAllProducts();
+
+            if (!products.Any())
             {
-                return NotFound("No products found");
+                return View(new List<Product>());
             }
-            return View(_getProducts.GetAllProducts());
+
+            return View(products);
         }
         public IActionResult Details(int id)
         {
-            try
-            {
-                var product = _getProducts.Details(id);
-                return View(product);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error getting product details for id {Id}", id);
-                return NotFound("Product not found");
-            }
+            if (id <= 0)
+                return BadRequest();
+
+            var product = _getProducts.Details(id);
+
+            if (product == null)
+                return NotFound();
+
+            return View(product);
         }
 
         public IActionResult Privacy()
