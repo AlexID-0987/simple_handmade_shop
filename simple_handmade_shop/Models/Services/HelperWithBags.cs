@@ -18,7 +18,7 @@ namespace simple_handmade_shop.Models.Services
 
         private IEnumerable<Bag> GetBagsFromSession()
         {
-            var session = _httpContextAccessor.HttpContext?.Session.GetString(_bagSessionKey);
+            string session = _httpContextAccessor.HttpContext?.Session.GetString(_bagSessionKey);
 
             if (string.IsNullOrEmpty(session))
             {
@@ -28,7 +28,7 @@ namespace simple_handmade_shop.Models.Services
         }
         private void SaveBagsToSession(IEnumerable<Bag> bags)
         {
-            var session = JsonSerializer.Serialize(bags);
+            string session = JsonSerializer.Serialize(bags);
             _httpContextAccessor.HttpContext?.Session.SetString(_bagSessionKey, session);
         }
         public IEnumerable<Bag> GetAllBags()
@@ -37,7 +37,7 @@ namespace simple_handmade_shop.Models.Services
         }
         public void AddBag(int id, string name, decimal price)
         {
-            var bags = GetBagsFromSession().ToList();
+            List<Bag> bags = GetBagsFromSession().ToList();
             Bag? existingBag = bags.FirstOrDefault(b => b.Id == id);
 
             if (existingBag != null)
@@ -54,7 +54,7 @@ namespace simple_handmade_shop.Models.Services
         }
         public void RemoveBag(int id)
         {
-            var bags = GetBagsFromSession().ToList();
+            List<Bag> bags = GetBagsFromSession().ToList();
             Bag? bagToRemove = bags.FirstOrDefault(b => b.Id == id);
             if (bagToRemove != null)
             {
@@ -64,7 +64,7 @@ namespace simple_handmade_shop.Models.Services
         }
         public void UpdateBag(int id, int quantity)
         {
-            var bags = GetBagsFromSession().ToList();
+            List<Bag> bags = GetBagsFromSession().ToList();
             Bag? bagToUpdate = bags.FirstOrDefault(b => b.Id == id);
             if (bagToUpdate != null)
             {
