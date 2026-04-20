@@ -18,7 +18,7 @@ namespace simple_handmade_shop.Models.Services
 
         private IEnumerable<Bag> GetBagsFromSession()
         {
-            string session = _httpContextAccessor.HttpContext?.Session.GetString(_bagSessionKey);
+            string? session = _httpContextAccessor.HttpContext?.Session.GetString(_bagSessionKey);
 
             if (string.IsNullOrEmpty(session))
             {
