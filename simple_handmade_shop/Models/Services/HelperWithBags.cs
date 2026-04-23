@@ -9,7 +9,7 @@ namespace simple_handmade_shop.Models.Services
         private readonly ApplicationDbContext _applicationDbContext;
         private const string _bagSessionKey = "BagItems";
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        
         public HelperWithBags(ApplicationDbContext applicationDbContext, IHttpContextAccessor httpContextAccessor)
         {
             _applicationDbContext = applicationDbContext;
@@ -35,11 +35,12 @@ namespace simple_handmade_shop.Models.Services
         {
             return GetBagsFromSession();
         }
-        public void AddBag(int id, string name, decimal price)
+        public void AddBag(int id)
         {
+            Product? product= _applicationDbContext.Products.FirstOrDefault(p => p.Id == id);
             List<Bag> bags = GetBagsFromSession().ToList();
             Bag? existingBag = bags.FirstOrDefault(b => b.Id == id);
-
+            
             if (existingBag != null)
             {
                 existingBag.Quantity++;
@@ -47,7 +48,7 @@ namespace simple_handmade_shop.Models.Services
             else
             {
 
-                bags.Add(new Bag { Id = id, Name = name, Price = price, Quantity = 1 });
+                bags.Add(new Bag {Id = product.Id, Name=product.Name,Price=product.Price, Quantity = 1 });
 
             }
             SaveBagsToSession(bags);

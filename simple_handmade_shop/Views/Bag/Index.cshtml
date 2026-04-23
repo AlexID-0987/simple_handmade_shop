@@ -55,9 +55,14 @@
     </table>
 </div>
 <div class="total">
-    <p>Total Items: @Model.Sum(b => b.Quantity)</p>
-    <p>Total Price: @Model.Sum(b => b.Price * b.Quantity)</p>
+    <p>Total Items: @ViewBag.TotalQuantity</p>
+    <p>Total Price: @ViewBag.TotalPrice</p>
 </div>
 <div class="continue-shopping">
     <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Continue Shopping</a>
+</div>
+<div>
+    <a asp-action="Choice" asp-controller="Choice" class="btn btn-success">
+        Buy
+    </a>
 </div>

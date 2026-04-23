@@ -3,7 +3,7 @@
     public interface IGetBag
     {
         IEnumerable<Bag> GetAllBags();
-        void AddBag(int id, string name, decimal price);
+        void AddBag(int id);
         void RemoveBag(int id);
 
         void UpdateBag(int id, int quantity);
