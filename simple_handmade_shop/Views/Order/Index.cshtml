@@ -1,6 +1,43 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using simple_handmade_shop.Models.Orderproducts
+@model ChecoutViewModel
 <h1> Order</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Quantity*@item.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h4>Total: @Model.TotalAmount</h4>
+<hr/>
+
+<form class="row g-3" asp-action="Index" asp-controller="Order" method="post">
+    @Html.AntiForgeryToken()
+  <div class="col-md-6">
+    <label asp-for="CustomerName" class="form-label">Name</label>
+    <input type="text" asp-for="CustomerName" class="form-control" placeholder="Name" required>
+  </div>
+  <div class="col-md-6">
+      <label asp-for="CustomerEmail" class="form-label">Email</label>
+      <input type="email" class="form-control" asp-for="CustomerEmail" placeholder="Email" required>
+  </div>
+  <div class="col-md-12">
+    <label  class="form-label" asp-for="CustomerPhone">Phone</label>
+    <input type="text" class="form-control" asp-for="CustomerPhone" placeholder="Phone" required>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary w-100" type="submit">Submit form</button>
+  </div>
+</form>

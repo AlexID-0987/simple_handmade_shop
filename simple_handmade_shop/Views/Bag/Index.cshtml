@@ -60,9 +60,16 @@
 </div>
 <div class="continue-shopping">
     <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Continue Shopping</a>
-</div>
-<div>
+    @if (Model.Any())
+    {
     <a asp-action="Choice" asp-controller="Choice" class="btn btn-success">
         Buy
-    </a>
+        </a>
+    }
+    else
+    {
+        <a class="btn btn-danger" disabled title="Cart is Empty">
+            Cart is Empty
+        </a>
+    }
 </div>

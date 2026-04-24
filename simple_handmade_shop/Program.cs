@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IGetProducts, HelperWithProducts>();
 builder.Services.AddScoped<IGetBag, HelperWithBags>();
+builder.Services.AddScoped<IGetOrder, OrderChoice>();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);

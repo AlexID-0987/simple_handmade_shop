@@ -57,4 +57,12 @@ body {
     align-items: center; /* вертикально */
     height: 200px;
 }
-    
+.continue-shopping a{
+    margin:5px;
+} 
+h1{
+    text-align:center;
+}
+h4{
+    text-align:center;   
+}
