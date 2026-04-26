@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using simple_handmade_shop.Data;
 using simple_handmade_shop.Models.Interfaces;
+using simple_handmade_shop.Models.Orderproducts;
 using simple_handmade_shop.Models.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var Smpt = builder.Configuration.GetSection("Smtp");
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -20,6 +22,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IGetProducts, HelperWithProducts>();
 builder.Services.AddScoped<IGetBag, HelperWithBags>();
 builder.Services.AddScoped<IGetOrder, OrderChoice>();
+builder.Services.AddScoped<SendEmailService>();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);

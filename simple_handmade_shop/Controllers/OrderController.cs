@@ -12,10 +12,14 @@ namespace simple_handmade_shop.Controllers
     {
         private readonly IGetOrder _getOrder;
         private readonly ApplicationDbContext _applicationDbContext;
-        public OrderController(IGetOrder getOrder, ApplicationDbContext applicationDbContext)
+        private readonly SendEmailService _sendEmailService;
+        private readonly IConfiguration _configuration;
+        public OrderController(IGetOrder getOrder, ApplicationDbContext applicationDbContext, SendEmailService sendEmailService, IConfiguration configuration)
         {
             _getOrder = getOrder;
             _applicationDbContext = applicationDbContext;
+            _sendEmailService = sendEmailService;
+            _configuration = configuration;
         }
         public IActionResult Index()
         {
@@ -35,7 +39,7 @@ namespace simple_handmade_shop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(ChecoutViewModel viewModel)
+        public async Task <IActionResult> Index(ChecoutViewModel viewModel)
         {
             
             IEnumerable<Bag> orders = _getOrder.GetOrders();
@@ -55,6 +59,7 @@ namespace simple_handmade_shop.Controllers
                     OrderDate = DateTime.Now,
                     TotalAmount = orders.Sum(r => r.Price * r.Quantity),
                     Quantity = orders.Sum(o => o.Quantity),
+                    PhoneNumber = viewModel.CustomerPhone,
                     OrderItems = orders.Select(o => new OrderItem
                     {
                         ProductId = o.Id,
@@ -65,6 +70,7 @@ namespace simple_handmade_shop.Controllers
                 _applicationDbContext.Orders.Add(order);
                 _applicationDbContext.OrderItems.AddRange(order.OrderItems);
                 _applicationDbContext.SaveChanges();
+                await _sendEmailService.SendOrderToOwner(order, _configuration);
                 return RedirectToAction("Success");
             }
             
