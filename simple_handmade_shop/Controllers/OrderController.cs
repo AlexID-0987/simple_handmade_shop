@@ -4,6 +4,7 @@ using simple_handmade_shop.Data;
 using simple_handmade_shop.Models;
 using simple_handmade_shop.Models.Interfaces;
 using simple_handmade_shop.Models.Orderproducts;
+using System.Security.Claims;
 
 namespace simple_handmade_shop.Controllers
 {
@@ -24,12 +25,19 @@ namespace simple_handmade_shop.Controllers
                 OrderItems = orders,
                 TotalAmount = orders.Sum(o => o.Price * o.Quantity)
             };
+            
+            if(User.Identity.IsAuthenticated)
+            {
+                viewModel.CustomerEmail = User.FindFirstValue(ClaimTypes.Email) ?? string.Empty;
+                
+            }
             return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult Index(ChecoutViewModel viewModel)
         {
+            
             IEnumerable<Bag> orders = _getOrder.GetOrders();
             if (orders == null || !orders.Any())
             {
@@ -38,14 +46,14 @@ namespace simple_handmade_shop.Controllers
             }
             if (ModelState.IsValid)
             {
-                
+
                 Order order = new Order
                 {
-                    
+                    UserId = User.Identity.IsAuthenticated ? User.Identity.Name : null,
                     CustomerName = viewModel.CustomerName,
-                    CustomerEmail = viewModel.CustomerEmail,
+                    CustomerEmail = User.Identity.IsAuthenticated ? User.FindFirstValue(ClaimTypes.Email) : viewModel.CustomerEmail,
                     OrderDate = DateTime.Now,
-                    TotalAmount = orders.Sum(r=>r.Price*r.Quantity),
+                    TotalAmount = orders.Sum(r => r.Price * r.Quantity),
                     Quantity = orders.Sum(o => o.Quantity),
                     OrderItems = orders.Select(o => new OrderItem
                     {
@@ -59,7 +67,12 @@ namespace simple_handmade_shop.Controllers
                 _applicationDbContext.SaveChanges();
                 return RedirectToAction("Success");
             }
+            
             return View(viewModel);
+            
+            
+                
+
         }
         public IActionResult Success()
         {

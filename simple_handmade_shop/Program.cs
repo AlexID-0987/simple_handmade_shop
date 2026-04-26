@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using simple_handmade_shop.Data;
 using simple_handmade_shop.Models.Interfaces;
 using simple_handmade_shop.Models.Services;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

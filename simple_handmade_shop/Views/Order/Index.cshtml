@@ -22,7 +22,15 @@
 </table>
 <h4>Total: @Model.TotalAmount</h4>
 <hr/>
-
+@if(Model.OrderItems.Count() == 0|| !Model.OrderItems.Any())
+{
+    <div class="alert alert-info" role="alert">
+        Your bag is empty. Please add some products to your bag before placing an order. <i class="fa-solid fa-bag-shopping"></i>
+       
+    </div>
+}
+else
+{
 <form class="row g-3" asp-action="Index" asp-controller="Order" method="post">
     @Html.AntiForgeryToken()
   <div class="col-md-6">
@@ -31,7 +39,14 @@
   </div>
   <div class="col-md-6">
       <label asp-for="CustomerEmail" class="form-label">Email</label>
-      <input type="email" class="form-control" asp-for="CustomerEmail" placeholder="Email" required>
+      @if(User.Identity.IsAuthenticated)
+      {
+          <input type="email" class="form-control" asp-for="CustomerEmail" placeholder="Email" value="@User.Identity.Name" readonly>
+      }
+      else
+      {
+          <input type="email" class="form-control" asp-for="CustomerEmail" placeholder="Email" required>
+      }
   </div>
   <div class="col-md-12">
     <label  class="form-label" asp-for="CustomerPhone">Phone</label>
@@ -41,3 +56,4 @@
     <button class="btn btn-primary w-100" type="submit">Submit form</button>
   </div>
 </form>
+}
