@@ -4,6 +4,7 @@ using simple_handmade_shop.Data;
 using simple_handmade_shop.Models;
 using simple_handmade_shop.Models.Interfaces;
 using simple_handmade_shop.Models.Orderproducts;
+using System.Net.Mail;
 using System.Security.Claims;
 
 namespace simple_handmade_shop.Controllers
@@ -14,12 +15,14 @@ namespace simple_handmade_shop.Controllers
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly SendEmailService _sendEmailService;
         private readonly IConfiguration _configuration;
-        public OrderController(IGetOrder getOrder, ApplicationDbContext applicationDbContext, SendEmailService sendEmailService, IConfiguration configuration)
+        private readonly IGenerateDocument _generateDocument;
+        public OrderController(IGetOrder getOrder, ApplicationDbContext applicationDbContext, SendEmailService sendEmailService, IConfiguration configuration, IGenerateDocument generateDocument)
         {
             _getOrder = getOrder;
             _applicationDbContext = applicationDbContext;
             _sendEmailService = sendEmailService;
             _configuration = configuration;
+            _generateDocument = generateDocument;
         }
         public IActionResult Index()
         {
@@ -70,6 +73,8 @@ namespace simple_handmade_shop.Controllers
                 _applicationDbContext.Orders.Add(order);
                 _applicationDbContext.OrderItems.AddRange(order.OrderItems);
                 _applicationDbContext.SaveChanges();
+                
+                
                 await _sendEmailService.SendOrderToOwner(order, _configuration);
                 return RedirectToAction("Success");
             }

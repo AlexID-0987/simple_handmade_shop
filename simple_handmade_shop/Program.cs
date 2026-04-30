@@ -23,6 +23,7 @@ builder.Services.AddScoped<IGetProducts, HelperWithProducts>();
 builder.Services.AddScoped<IGetBag, HelperWithBags>();
 builder.Services.AddScoped<IGetOrder, OrderChoice>();
 builder.Services.AddScoped<SendEmailService>();
+builder.Services.AddScoped<IGenerateDocument, SendDocument>();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
