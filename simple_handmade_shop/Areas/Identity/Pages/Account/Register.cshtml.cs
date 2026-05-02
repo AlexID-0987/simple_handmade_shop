@@ -136,7 +136,8 @@ namespace simple_handmade_shop.Areas.Identity.Pages.Account
                         "Підтвердження email",
                         $"Підтвердіть акаунт: <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Натисніть тут</a>"
                     );
-
+                    await _userManager.AddToRoleAsync(user, "User");
+                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
                 }
                 foreach (var error in result.Errors)

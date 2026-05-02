@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using simple_handmade_shop.Models;
 
 
@@ -56,5 +57,6 @@ namespace simple_handmade_shop.Data
                 }
             );
         }
+        
     }
 }

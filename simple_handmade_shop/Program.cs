@@ -1,29 +1,43 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using simple_handmade_shop.Data;
+
 using simple_handmade_shop.Models.Interfaces;
 using simple_handmade_shop.Models.Orderproducts;
 using simple_handmade_shop.Models.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
-var Smpt = builder.Configuration.GetSection("Smtp");
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// Connection string
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+// Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+// Identity + Roles
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+
+    // Password settings
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+})
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<ApplicationDbContext>();
+
+// MVC
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IGetProducts, HelperWithProducts>();
-builder.Services.AddScoped<IGetBag, HelperWithBags>();
-builder.Services.AddScoped<IGetOrder, OrderChoice>();
-builder.Services.AddScoped<SendEmailService>();
-builder.Services.AddScoped<IGenerateDocument, SendDocument>();
+builder.Services.AddRazorPages();
+
+// Session
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -31,12 +45,24 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-builder.Services.AddHttpContextAccessor();
+// Cache + HttpContext
 builder.Services.AddDistributedMemoryCache();
+builder.Services.AddHttpContextAccessor();
+
+// Custom Services
+builder.Services.AddScoped<IGetProducts, HelperWithProducts>();
+builder.Services.AddScoped<IGetBag, HelperWithBags>();
+builder.Services.AddScoped<IGetOrder, OrderChoice>();
+builder.Services.AddScoped<SendEmailService>();
+builder.Services.AddScoped<IGenerateDocument, SendDocument>();
+builder.Services.AddScoped<IHelperAdmin, HelperwithAdmin>();
+
+// Admin Initializer
+builder.Services.AddScoped<IAdmin, DbInitialiserRole>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -44,23 +70,36 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
+// Create Admin + Role automatically
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var adminInitializer = services.GetRequiredService<IAdmin>();
+
+    await adminInitializer.CreateAdmin(userManager, roleManager);
+}
+
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+
 app.UseRouting();
-app.UseSession();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
+app.UseSession();
 
+// Routes
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapRazorPages()
-   .WithStaticAssets();
+app.MapRazorPages();
 
 app.Run();

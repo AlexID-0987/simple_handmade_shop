@@ -1,0 +1,35 @@
+﻿@model Product
+<h1>Create new Product</h1>
+
+<div>
+    <form asp-action="Create" class="row g-3" method="post">
+        <div class="col-md-12">
+            <label asp-for="Name" class="form-label">Name</label>
+            <input asp-for="Name" type="text" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="ImageUrl" class="form-label">Image URL</label>
+            <input asp-for="ImageUrl" type="text" class="form-control" />
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Description" class="form-label">Description</label>
+            <input asp-for="Description" type="text" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="FullDescription" class="form-label">Full Description</label>
+            <textarea asp-for="FullDescription" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="FullDescription" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Price" class="form-label">Price</label>
+            <input asp-for="Price" type="number" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary w-100">Create</button>
+        </div>
+    </form>
+</div>

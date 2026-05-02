@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Choice\" />
-    <Folder Include="wwwroot\photo\" />
   </ItemGroup>
 
   <ItemGroup>
