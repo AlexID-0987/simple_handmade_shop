@@ -38,5 +38,10 @@ namespace simple_handmade_shop.Controllers
             }
             return View(product);
         }
+        public IActionResult Delete(int id)
+        {
+            _helperAdmin.RemoveProductList(id);
+            return RedirectToAction(nameof(Products));
+        }
     }
 }
