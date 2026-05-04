@@ -34,7 +34,7 @@ namespace simple_handmade_shop.Controllers
             if (ModelState.IsValid)
             {
                 _helperAdmin.AddProductList(product);
-                 return RedirectToAction(nameof(Products));
+                return RedirectToAction(nameof(Products));
             }
             return View(product);
         }
@@ -42,6 +42,25 @@ namespace simple_handmade_shop.Controllers
         {
             _helperAdmin.RemoveProductList(id);
             return RedirectToAction(nameof(Products));
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var product = _helperAdmin.EditProduct(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+        public IActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _helperAdmin.EditProduct(product);
+                return RedirectToAction(nameof(Products));
+            }
+            return View(product);
         }
     }
 }

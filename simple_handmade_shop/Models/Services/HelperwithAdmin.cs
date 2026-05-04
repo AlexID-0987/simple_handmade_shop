@@ -35,5 +35,34 @@ namespace simple_handmade_shop.Models.Services
             }
         }
         
+        public Product EditProduct(int id)
+        {
+            var product = _context.Products.Find(id);
+            if (product != null)
+            {
+                return product;
+            }
+            return null;
+        }
+        public void EditProduct(Product product)
+        {
+            Product oneProduct= _context.Products.Find(product.Id);
+                if (oneProduct != null)
+                {
+                    oneProduct.Name = product.Name;
+                    oneProduct.Description = product.Description;
+                    oneProduct.Price = product.Price;
+                     if (!string.IsNullOrEmpty(product.ImageUrl))
+                     {
+                           oneProduct.ImageUrl = product.ImageUrl;
+                     }
+
+                }
+
+            _context.SaveChanges();
+           
+
+        }
+
     }
 }

@@ -7,7 +7,8 @@
         void AddProductList(Product product);
 
         void RemoveProductList(int id);
-
+        Product EditProduct (int id);
+        void EditProduct (Product product);
 
     }
 }
