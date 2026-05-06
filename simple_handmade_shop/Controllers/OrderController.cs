@@ -53,10 +53,10 @@ namespace simple_handmade_shop.Controllers
             }
             if (ModelState.IsValid)
             {
-
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 Order order = new Order
                 {
-                    UserId = User.Identity.IsAuthenticated ? User.Identity.Name : null,
+                    UserId = userId,
                     CustomerName = viewModel.CustomerName,
                     CustomerEmail = User.Identity.IsAuthenticated ? User.FindFirstValue(ClaimTypes.Email) : viewModel.CustomerEmail,
                     OrderDate = DateTime.Now,

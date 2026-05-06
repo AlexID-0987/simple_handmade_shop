@@ -1,0 +1,88 @@
+﻿@model simple_handmade_shop.Models.Admin.AdminDashboard
+
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Admin Analitics Dashboard</h1>
+        <p class="text-muted">Welcome to the admin dashboard! Here you can find insights and analytics about your shop's performance.</p>
+    </div>
+    <div>
+        <div class="row g-4">
+            <h2 class="mb-4">Admin Dashboard</h2>
+
+            <!-- Summary cards -->
+            <div class="row g-3 mb-4">
+
+                <div class="col-md-6">
+                    <div class="card shadow-sm text-center p-3">
+                        <h5>Total Users</h5>
+                        <h2>@Model.Users.Count()</h2>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card shadow-sm text-center p-3">
+                        <h5>Total Orders</h5>
+                        <h2>@Model.Orders.Count()</h2>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+</div>
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-dark text-white">
+            Latest Orders
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th>Order Id</th>
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.Orders.Take(10))
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            <td>@order.User?.UserName</td>
+                            <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                            <td>@order.TotalAmount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Users list -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            Users
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>User Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@user.Email</td>
+                            <td>@user.UserName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+

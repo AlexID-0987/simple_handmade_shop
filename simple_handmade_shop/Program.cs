@@ -56,6 +56,7 @@ builder.Services.AddScoped<IGetOrder, OrderChoice>();
 builder.Services.AddScoped<SendEmailService>();
 builder.Services.AddScoped<IGenerateDocument, SendDocument>();
 builder.Services.AddScoped<IHelperAdmin, HelperwithAdmin>();
+builder.Services.AddScoped<IDashboard, HelperDashboard>();
 
 // Admin Initializer
 builder.Services.AddScoped<IAdmin, DbInitialiserRole>();

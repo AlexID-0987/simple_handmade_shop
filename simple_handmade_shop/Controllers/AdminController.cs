@@ -12,10 +12,12 @@ namespace simple_handmade_shop.Controllers
     public class AdminController : Controller
     {
         private readonly IHelperAdmin _helperAdmin;
+        private readonly IDashboard _dashboard;
 
-        public AdminController(IHelperAdmin helperAdmin)
+        public AdminController(IHelperAdmin helperAdmin, IDashboard dashboard)
         {
             _helperAdmin = helperAdmin;
+            _dashboard = dashboard;
         }
         public async Task<IActionResult> Products()
         {
@@ -61,6 +63,11 @@ namespace simple_handmade_shop.Controllers
                 return RedirectToAction(nameof(Products));
             }
             return View(product);
+        }
+        public IActionResult Dashboard()
+        {
+            var dashboard = _dashboard.GetUsers();
+            return View(dashboard);
         }
     }
 }
