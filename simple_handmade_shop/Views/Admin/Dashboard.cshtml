@@ -42,6 +42,7 @@
                         <th>User</th>
                         <th>Date</th>
                         <th>Total</th>
+                        <th>Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,6 +53,9 @@
                             <td>@order.User?.UserName</td>
                             <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
                             <td>@order.TotalAmount</td>
+                            <td>
+                                <a href="@Url.Action("Details", "Admin", new { id = order.Id })" class="btn btn-primary">Details</a>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -71,18 +75,31 @@
                     <tr>
                         <th>Email</th>
                         <th>User Name</th>
+                        <th>Orders Count</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var user in Model.Users)
                     {
+                        var ordersCount = Model.Orders.Count(o => o.UserId == user.Id);
+
                         <tr>
                             <td>@user.Email</td>
                             <td>@user.UserName</td>
+                            <td>
+                                <span class="badge bg-success">
+                                    @ordersCount
+                                </span>
+                            </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
+</div>
+    <div class="bottom_button">
+        <a href="@Url.Action("Products", "Admin")" class="btn btn-success w-100">
+            ← Back Admin Products
+        </a>
     </div>
 

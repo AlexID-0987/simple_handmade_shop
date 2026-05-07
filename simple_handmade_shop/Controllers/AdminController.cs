@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml.InkML;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using simple_handmade_shop.Data;
 using simple_handmade_shop.Models;
 using simple_handmade_shop.Models.Interfaces;
+using simple_handmade_shop.Models.Orderproducts;
 
 namespace simple_handmade_shop.Controllers
 {
@@ -40,6 +42,7 @@ namespace simple_handmade_shop.Controllers
             }
             return View(product);
         }
+        [HttpGet]
         public IActionResult Delete(int id)
         {
             _helperAdmin.RemoveProductList(id);
@@ -55,6 +58,7 @@ namespace simple_handmade_shop.Controllers
             }
             return View(product);
         }
+        [HttpPost]
         public IActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
@@ -68,6 +72,17 @@ namespace simple_handmade_shop.Controllers
         {
             var dashboard = _dashboard.GetUsers();
             return View(dashboard);
+        }
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            IEnumerable<OrderItem> order = _dashboard.GetOrders(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            @ViewBag.OrderId = id;
+            return View(order);
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using simple_handmade_shop.Data;
 using simple_handmade_shop.Models.Admin;
 using simple_handmade_shop.Models.Interfaces;
+using simple_handmade_shop.Models.Orderproducts;
 
 namespace simple_handmade_shop.Models.Services
 {
@@ -27,6 +28,14 @@ namespace simple_handmade_shop.Models.Services
                 .ToList()
             };
             return users;
+        }
+        public IEnumerable<OrderItem> GetOrders(int id)
+        {
+            var orderItems = _context.OrderItems
+                   .Where(oi => oi.OrderId == id)
+                   .Include(oi => oi.Product)
+                   .ToList();
+            return orderItems;
         }
     }
 }

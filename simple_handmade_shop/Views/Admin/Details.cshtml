@@ -1,0 +1,47 @@
+﻿@model List<simple_handmade_shop.Models.Orderproducts.OrderItem>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Товари в замовленні #@ViewBag.OrderId</h2>
+
+    <table class="table table-bordered table-hover shadow">
+        <thead class="table-dark">
+            <tr>
+                <th>Фото</th>
+                <th>Назва товару</th>
+                <th>Ціна</th>
+                <th>Кількість</th>
+                <th>Сума</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.Product.ImageUrl"
+                             alt="@item.Product.Name"
+                             width="80"
+                             class="img-fluid rounded" />
+                    </td>
+                    <td>@item.Product.Name</td>
+                    <td>@item.UnitPrice.ToString("C")</td>
+                    <td>@item.Quantity</td>
+                    <td>@((item.UnitPrice * item.Quantity).ToString("C"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-end mt-3">
+        <h4>
+            Загальна сума:
+            <span class="text-success fw-bold">
+                @Model.Sum(x => x.UnitPrice * x.Quantity).ToString("C")
+            </span>
+        </h4>
+    </div>
+
+    <a asp-action="Dashboard" asp-controller="Admin" class="btn btn-secondary w-100">
+        ← Back
+    </a>
+</div>
