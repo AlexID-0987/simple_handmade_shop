@@ -15,14 +15,14 @@ namespace simple_handmade_shop.Controllers
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly SendEmailService _sendEmailService;
         private readonly IConfiguration _configuration;
-        private readonly IGenerateDocument _generateDocument;
-        public OrderController(IGetOrder getOrder, ApplicationDbContext applicationDbContext, SendEmailService sendEmailService, IConfiguration configuration, IGenerateDocument generateDocument)
+        
+        public OrderController(IGetOrder getOrder, ApplicationDbContext applicationDbContext, SendEmailService sendEmailService, IConfiguration configuration)
         {
             _getOrder = getOrder;
             _applicationDbContext = applicationDbContext;
             _sendEmailService = sendEmailService;
             _configuration = configuration;
-            _generateDocument = generateDocument;
+            
         }
         public IActionResult Index()
         {
@@ -76,7 +76,8 @@ namespace simple_handmade_shop.Controllers
                 
                 
                 await _sendEmailService.SendOrderToOwner(order, _configuration);
-                return RedirectToAction("Success");
+                //return RedirectToAction("Success");
+                return RedirectToAction("ActionPay", "Pay", new { id = order.Id });
             }
             
             return View(viewModel);

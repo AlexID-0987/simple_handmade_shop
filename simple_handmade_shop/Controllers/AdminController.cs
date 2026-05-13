@@ -49,9 +49,9 @@ namespace simple_handmade_shop.Controllers
             return RedirectToAction(nameof(Products));
         }
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var product = _helperAdmin.EditProduct(id);
+            var product = await _helperAdmin.EditProduct(id);
             if (product == null)
             {
                 return NotFound();
@@ -59,11 +59,11 @@ namespace simple_handmade_shop.Controllers
             return View(product);
         }
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public async Task<IActionResult> Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                _helperAdmin.EditProduct(product);
+                await _helperAdmin.EditProduct(product);
                 return RedirectToAction(nameof(Products));
             }
             return View(product);

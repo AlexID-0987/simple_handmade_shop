@@ -3,6 +3,6 @@
     public interface IGetOrder
     {
         IEnumerable<Bag> GetOrders();
-         
+
     }
 }

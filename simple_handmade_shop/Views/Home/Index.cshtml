@@ -14,7 +14,9 @@
             <div class="card-body">
                 <h5 class="card-title">@product.Name</h5>
                 <p class="card-text">@product.Description</p>
+                
                 <div class="container text-center">
+                    <p class="card-text fw-bold" style="text-align:center">@product.Price.ToString("C", new System.Globalization.CultureInfo("uk-UA"))</p>
                     <a asp-action="Details" asp-controller="Home" asp-route-id="@product.Id" class="btn btn-primary">View Details</a>
                 </div>
             </div>

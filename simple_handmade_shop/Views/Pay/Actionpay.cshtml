@@ -1,0 +1,28 @@
+﻿
+<h1>Pay</h1>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <title>LiqPay</title>
+</head>
+<body>
+
+    <form id="liqpay_form" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
+        <input type="hidden" name="data" value="@ViewBag.PaymentData" />
+        <input type="hidden" name="signature" value="@ViewBag.PaymentSignature" />
+
+        <button type="submit">Оплатити</button>
+    </form>
+
+    <script>
+        document.getElementById("liqpay_form").submit();
+    </script>
+
+</body>
+</html>

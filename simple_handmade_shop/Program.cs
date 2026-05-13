@@ -57,6 +57,7 @@ builder.Services.AddScoped<SendEmailService>();
 builder.Services.AddScoped<IGenerateDocument, SendDocument>();
 builder.Services.AddScoped<IHelperAdmin, HelperwithAdmin>();
 builder.Services.AddScoped<IDashboard, HelperDashboard>();
+builder.Services.AddScoped<IPayment, HelperPayment>();
 
 // Admin Initializer
 builder.Services.AddScoped<IAdmin, DbInitialiserRole>();

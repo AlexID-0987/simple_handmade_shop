@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using simple_handmade_shop.Data.Migrations;
 using simple_handmade_shop.Models;
 using simple_handmade_shop.Models.Orderproducts;
+using simple_handmade_shop.Models.Prod;
 
 namespace simple_handmade_shop.Data
 {
@@ -14,11 +16,13 @@ namespace simple_handmade_shop.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ProductImages> ProductImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             SeedDataProducts.SeedData(modelBuilder);
+            SeedProductImages.SeedData(modelBuilder);
             modelBuilder.Entity<Order>()
                 .HasMany(o => o.OrderItems)
                 .WithOne(oi => oi.Order)

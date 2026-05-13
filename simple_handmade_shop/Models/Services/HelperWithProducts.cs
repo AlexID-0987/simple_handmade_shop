@@ -1,4 +1,5 @@
-﻿using simple_handmade_shop.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using simple_handmade_shop.Data;
 using simple_handmade_shop.Models.Interfaces;
 
 
@@ -13,20 +14,18 @@ namespace simple_handmade_shop.Models.Services
         {
             _applicationDbContext = applicationDbContext;
         }
-        public IEnumerable<Product> GetAllProducts()
+        public async Task<IEnumerable<Product>> GetAllProducts()
         {
-           
-            var products = _applicationDbContext.Products.ToList();
-            return products;
+            return await _applicationDbContext.Products
+            .AsNoTracking()
+            .ToListAsync();
         }
-        public Product Details(int id)
+        public async Task<Product?> Details(int id)
         {
-            var product = _applicationDbContext.Products.FirstOrDefault(p => p.Id == id);
-            if (product == null)
-            {
-                throw new Exception("Product not found");
-            }
-            return product;
+            return await _applicationDbContext.Products
+                .Include(p => p.ProductImages)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

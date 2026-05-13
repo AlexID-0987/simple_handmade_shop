@@ -6,9 +6,9 @@
 
         void AddProductList(Product product);
 
-        void RemoveProductList(int id);
-        Product EditProduct (int id);
-        void EditProduct (Product product);
+        Task RemoveProductList(int id);
+        Task<Product> EditProduct (int id);
+        Task EditProduct (Product product);
 
     }
 }

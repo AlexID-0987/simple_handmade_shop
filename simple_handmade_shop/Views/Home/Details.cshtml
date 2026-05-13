@@ -2,15 +2,88 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/details.css" />
 }
-<div class="container">
+<div>
     <h1>@Model.Name</h1>
-    <div class="image">
-        <img src="@Model.ImageUrl" alt="@Model.Name" style="max-width: 100%; height: auto;">
-    </div>
-    <p>@Model.FullDescription</p>
+    @if (Model != null)
+    {
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+            <!-- Індикатори -->
+            <div class="carousel-indicators">
+
+                <!-- Перше головне фото -->
+                <button type="button"
+                        data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide-to="0"
+                        class="active"
+                        aria-current="true"
+                        aria-label="Slide 1">
+                </button>
+
+                <!-- Додаткові фото -->
+                @for (int i = 0; i < Model.ProductImages.Count; i++)
+                {
+                    <button type="button"
+                            data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to="@(i + 1)"
+                            aria-label="Slide @(i + 2)">
+                    </button>
+                }
+
+            </div>
+
+            <!-- Слайди -->
+            <div class="carousel-inner">
+
+                <!-- Головне фото -->
+                <div class="carousel-item active">
+                    <img src="@Model.ImageUrl"
+                         class="d-block w-100"
+                         alt="@Model.Name"
+                         style="height:500px; object-fit:cover;">
+                </div>
+
+                <!-- Додаткові фото -->
+                @foreach (var image in Model.ProductImages)
+                {
+                    <div class="carousel-item">
+                        <img src="@image.ImageUrl"
+                             class="d-block w-100"
+                             alt="@Model.Name"
+                             style="height:500px; object-fit:cover;">
+                    </div>
+                }
+
+            </div>
+
+            <!-- Кнопка назад -->
+            <button class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Попередній</span>
+            </button>
+
+            <!-- Кнопка вперед -->
+            <button class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Наступний</span>
+            </button>
+
+        </div>
+    }
+
+</div>
+<div class="container" style="margin:20px;">
+    <p style="font-weight:bold;">@Model.FullDescription</p>
     <h1>@Model.Price</h1>
     <div class="action">
         <a asp-action="Index" asp-controller="Home" class="btn btn-secondary w-50">Back to Products</a>
         <a asp-action="Add" asp-controller="Bag" asp-route-id="@Model.Id" class="btn btn-primary w-50">Buy</a>
     </div>
 </div>
+

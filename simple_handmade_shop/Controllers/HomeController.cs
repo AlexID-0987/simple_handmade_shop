@@ -21,10 +21,10 @@ namespace simple_handmade_shop.Controllers
             
             
         }
-
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            var products = _getProducts.GetAllProducts();
+            var products = await _getProducts.GetAllProducts();
 
             if (!products.Any())
             {
@@ -33,12 +33,13 @@ namespace simple_handmade_shop.Controllers
 
             return View(products);
         }
-        public IActionResult Details(int id)
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
         {
             if (id <= 0)
                 return BadRequest();
 
-            var product = _getProducts.Details(id);
+            var product = await _getProducts.Details(id);
 
             if (product == null)
                 return NotFound();

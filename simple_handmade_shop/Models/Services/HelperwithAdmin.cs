@@ -25,28 +25,28 @@ namespace simple_handmade_shop.Models.Services
             return _context.Products.ToList();
         }
 
-        public void RemoveProductList(int id)
+        public async Task RemoveProductList(int id)
         {
-            var product = _context.Products.Find(id);
+            var product = await _context.Products.FindAsync(id);
             if (product != null)
             {
                 _context.Products.Remove(product);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
-        
-        public Product EditProduct(int id)
+
+        public async Task<Product> EditProduct(int id)
         {
-            var product = _context.Products.Find(id);
+            var product = await _context.Products.FindAsync(id);
             if (product != null)
             {
                 return product;
             }
             return null;
         }
-        public void EditProduct(Product product)
+        public async Task EditProduct(Product product)
         {
-            Product oneProduct= _context.Products.Find(product.Id);
+            Product oneProduct= await _context.Products.FindAsync(product.Id);
                 if (oneProduct != null)
                 {
                     oneProduct.Name = product.Name;

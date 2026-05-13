@@ -1,4 +1,6 @@
-﻿namespace simple_handmade_shop.Models
+﻿using simple_handmade_shop.Models.Prod;
+
+namespace simple_handmade_shop.Models
 {
     public class Product
     {
@@ -10,5 +12,6 @@
 
         public int Quantity { get; set; }
         public decimal Price { get; set; }
+        public ICollection<ProductImages> ProductImages { get; set; } = new List<ProductImages>();
     }
 }
