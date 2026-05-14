@@ -28,7 +28,7 @@ namespace simple_handmade_shop.Models.Orderproducts
 
             var subject = "New Order Received";
 
-            // ✅ спочатку формуємо body
+            
             var body = $"You have received a new order from {order.CustomerName} ({order.CustomerEmail}).\n" +
                        $"Total Amount: {order.TotalAmount:C}\n" +
                        $"Quantity: {order.Quantity}\n" +
@@ -46,13 +46,13 @@ namespace simple_handmade_shop.Models.Orderproducts
             }
             
 
-            // ✅ створюємо Excel
+            
             var excelByte = _generateDocument.SendDoc(order, _context);
             var stream = new MemoryStream(excelByte);
             var attachment = new Attachment(stream, "order.xlsx",
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
-            // ✅ один MailMessage
+            
             var mailMessage = new MailMessage(fromAddress, toAddress)
             {
                 Subject = subject,
@@ -61,14 +61,14 @@ namespace simple_handmade_shop.Models.Orderproducts
 
             mailMessage.Attachments.Add(attachment);
 
-            // ✅ один SMTP
+            
             var smtp = new SmtpClient("smtp.gmail.com", 587)
             {
                 Credentials = new NetworkCredential(fromEmail, fromPassword),
                 EnableSsl = true
             };
 
-            // ✅ один send
+           
             await smtp.SendMailAsync(mailMessage);
         }
         
