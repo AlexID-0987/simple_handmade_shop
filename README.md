@@ -9,6 +9,9 @@ If you want to view your statistics, the project has a dashboard.
 <img width="1918" height="983" alt="Screenshot (119)" src="https://github.com/user-attachments/assets/bd7c7830-b830-4801-877f-d26184c68502" />
 <img width="1906" height="939" alt="Screenshot (121)" src="https://github.com/user-attachments/assets/94e70953-842c-451f-933e-535e207abda2" />
 <img width="839" height="626" alt="Screenshot (122)" src="https://github.com/user-attachments/assets/0ab014a6-4a3b-4c2c-9209-5ec2118d0baa" />
+This project has a test solution.
+<img width="792" height="394" alt="Screenshot (127)" src="https://github.com/user-attachments/assets/14dfeffd-3c98-461b-830c-297f84a90111" />
+
 
 
 
